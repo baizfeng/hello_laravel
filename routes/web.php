@@ -28,4 +28,10 @@ Route::group(['prefix' => '/home/test'], function () {
     Route::get('update', 'TestController@update');
 	//查
     Route::get('select', 'TestController@select');
+
+    Route::get('test3','TestController@test3');
+
+    Route::get('test4','TestController@test4');
+
+    Route::get('test5','TestController@test5');
 });
