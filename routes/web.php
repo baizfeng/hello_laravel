@@ -38,4 +38,11 @@ Route::group(['prefix' => '/home/test'], function () {
     //CSFR验证
     Route::get('test6','TestController@test6');
     Route::post('test7','TestController@test7')->name('test7');
+
+    //模型的增删改查
+    Route::any('test8','TestController@test8');
+    Route::get('test9','TestController@test9');
+    Route::get('test10','TestController@test10');
+    Route::get('test11','TestController@test11');
+    Route::any('test12','TestController@test12');
 });

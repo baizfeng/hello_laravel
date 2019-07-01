@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Home\Member;
 use DB;
+use Illuminate\Http\Request;
+use Input;
 
 class TestController extends Controller
 {
@@ -78,19 +81,71 @@ class TestController extends Controller
     {
         $db   = DB::table('member');
         $data = $db->get();
-        return view('home.test.test4',compact('data'));
+        return view('home.test.test4', compact('data'));
     }
 
-    public function test5(){
+    public function test5()
+    {
         return view('home.test.test5');
     }
 
     //展示基础表单
-    public function test6(){
+    public function test6()
+    {
         return view('home.test.test6');
     }
 
-    public function test7(){
+    public function test7()
+    {
         return '请求提交成功';
+    }
+
+    public function test8(Request $request)
+    {
+        //实例化模型，将表和类映射关联起来
+        $model = new Member();
+        // //给属性赋值,将字段与类的属性映射起来
+        // $model->name  = '毛泽东';
+        // $model->age   = '83';
+        // $model->email = 'maozedong@qq.com';
+        // $result       = $model->save();
+        // dd($result);
+        // 方法二
+        $result = $model->create($request->all());
+        dd($request);
+    }
+
+    public function test9()
+    {
+        $data = Member::where('id', '>', '4')->get()->toArray();
+        dd($data);
+    }
+
+    public function test10()
+    {
+        $data        = Member::find(5);
+        $data->email = 'shabi@qq.com';
+        $result      = $data->save();
+        dd($result);
+    }
+
+    public function test11()
+    {
+        $data = Member::find(5);
+        dd($data->delete());
+    }
+
+    public function test12(Request $request)
+    {
+        if (Input::method() == 'POST') {
+            $this->validate($request, [
+                'name'  => 'required|min:6|max:15',
+                'age'   => 'required|integer|min:1|max:100',
+                'email' => 'required|email',
+            ]);
+            return "hello bai";
+        } else {
+            return view('home.test.test12');
+        }
     }
 }
