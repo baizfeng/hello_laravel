@@ -84,4 +84,13 @@ class TestController extends Controller
     public function test5(){
         return view('home.test.test5');
     }
+
+    //展示基础表单
+    public function test6(){
+        return view('home.test.test6');
+    }
+
+    public function test7(){
+        return '请求提交成功';
+    }
 }

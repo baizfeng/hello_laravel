@@ -34,4 +34,8 @@ Route::group(['prefix' => '/home/test'], function () {
     Route::get('test4','TestController@test4');
 
     Route::get('test5','TestController@test5');
+
+    //CSFR验证
+    Route::get('test6','TestController@test6');
+    Route::post('test7','TestController@test7')->name('test7');
 });
