@@ -22,27 +22,31 @@ Route::any('/test', function () {
 Route::group(['prefix' => '/home/test'], function () {
     //增
     Route::get('add', 'TestController@add');
-	//删
+    //删
     Route::get('del', 'TestController@del');
-	//改
+    //改
     Route::get('update', 'TestController@update');
-	//查
+    //查
     Route::get('select', 'TestController@select');
 
-    Route::get('test3','TestController@test3');
+    Route::get('test3', 'TestController@test3');
 
-    Route::get('test4','TestController@test4');
+    Route::get('test4', 'TestController@test4');
 
-    Route::get('test5','TestController@test5');
+    Route::get('test5', 'TestController@test5');
 
     //CSFR验证
-    Route::get('test6','TestController@test6');
-    Route::post('test7','TestController@test7')->name('test7');
+    Route::get('test6', 'TestController@test6');
+    Route::post('test7', 'TestController@test7')->name('test7');
 
     //模型的增删改查
-    Route::any('test8','TestController@test8');
-    Route::get('test9','TestController@test9');
-    Route::get('test10','TestController@test10');
-    Route::get('test11','TestController@test11');
-    Route::any('test12','TestController@test12');
+    Route::any('test8', 'TestController@test8');
+    Route::get('test9', 'TestController@test9');
+    Route::get('test10', 'TestController@test10');
+    Route::get('test11', 'TestController@test11');
+    Route::any('test12', 'TestController@test12');
+    //文件上传
+    Route::any('test14', 'TestController@test14');
+    //分页
+    Route::get('test15', 'TestController@test15');
 });

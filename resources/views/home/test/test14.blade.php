@@ -14,11 +14,11 @@
 			</ul>
 		</div>
 	@endif
-	<form action="/home/test/test12" method="post">
+	<form action="/home/test/test14" method="post" enctype="multipart/form-data">
 		<p>姓名：<input type="text" name="name" value=""></p>
 		<p>年龄：<input type="text" name="age" value=""></p>
 		<p>邮箱：<input type="email" name="email" value=""></p>
-		<p>验证码：<input type="text" name="captcha"/><img src="{{captcha_src()}}"></p>
+		<p>头像：<input type="file" name="avatar"></p>
 		{{csrf_field()}}
 		<input type="submit" value="提交">
 	</form>

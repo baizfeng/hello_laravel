@@ -142,10 +142,36 @@ class TestController extends Controller
                 'name'  => 'required|min:6|max:15',
                 'age'   => 'required|integer|min:1|max:100',
                 'email' => 'required|email',
+                'captcha'=>'required|captcha'
             ]);
-            return "hello bai";
         } else {
             return view('home.test.test12');
         }
+    }
+
+    public function test14(Request $request)
+    {
+        if (Input::method() == 'POST') {
+            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+                $path = md5(time() . rand(100000, 999999)) . '.' . $request->file('avatar')->getClientOriginalExtension();
+                $request->file('avatar')->move('./uploads', $path);
+                //获取全部数据
+                $data = $request->all();
+                //将路径添加至数组中
+                $data['avatar'] = './uploads/' . $path;
+                $result         = Member::create($data);
+                dd($result);
+            } else {
+                echo "6666";
+            }
+        } else {
+            return view('home.test.test14');
+        }
+    }
+
+    public function test15()
+    {
+        $data = Member::paginate(2);
+        return view('home.test.test15',compact('data'));
     }
 }
