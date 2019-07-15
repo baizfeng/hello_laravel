@@ -6,6 +6,7 @@ use App\Home\Member;
 use DB;
 use Illuminate\Http\Request;
 use Input;
+use Session;
 
 class TestController extends Controller
 {
@@ -139,10 +140,10 @@ class TestController extends Controller
     {
         if (Input::method() == 'POST') {
             $this->validate($request, [
-                'name'  => 'required|min:6|max:15',
-                'age'   => 'required|integer|min:1|max:100',
-                'email' => 'required|email',
-                'captcha'=>'required|captcha'
+                'name'    => 'required|min:6|max:15',
+                'age'     => 'required|integer|min:1|max:100',
+                'email'   => 'required|email',
+                'captcha' => 'required|captcha',
             ]);
         } else {
             return view('home.test.test12');
@@ -160,7 +161,10 @@ class TestController extends Controller
                 //将路径添加至数组中
                 $data['avatar'] = './uploads/' . $path;
                 $result         = Member::create($data);
-                dd($result);
+                //判断是否成功
+                if ($result) {
+                    return redirect('/');
+                }
             } else {
                 echo "6666";
             }
@@ -172,6 +176,66 @@ class TestController extends Controller
     public function test15()
     {
         $data = Member::paginate(2);
-        return view('home.test.test15',compact('data'));
+        return view('home.test.test15', compact('data'));
+    }
+
+    //ajax页面展示
+    public function test16()
+    {
+        return view('home.test.test16');
+    }
+
+    //ajax的响应
+    public function test17()
+    {
+        //查询数据
+        $data = Member::all();
+        //json格式响应
+        return response()->json($data);
+    }
+
+    public function test18()
+    {
+        //session中存储一个变量
+        Session::put('name', '白罩峰');
+        //获取变量
+        echo Session::get('name');
+        // dd(Session::get('gender','保密'));
+
+        Session::forget('name');
+        Session::flush();
+    }
+
+    public function test20()
+    {
+        // select  t1.id,t1.article_name,t2.author_name from article as t1 left join author as t2 on t1.author_id = t2.id;
+        // 查询
+        $data = DB::table('article as t1')->select('t1.id', 't1.article_name', 't2.author_name')->leftJoin('author as t2', 't1.author_id', '=', 't2.id')->get();
+        dd($data);
+    }
+
+    //一对一
+    public function test21()
+    {
+        //查询数据
+        $data = \App\Home\Article::get();
+        //循环展示
+        foreach ($data as $key => $value) {
+            echo $value->id . '&emsp;' . $value->article_name . '&emsp;' . $value->author->author_name . '<br/>';
+        }
+    }
+
+    //一对多
+    public function test22()
+    {
+        //查询数据
+        $data = \App\Home\Article::get();
+        //循环展示
+        foreach ($data as $key => $value) {
+            echo "当前文章名称为:".$value->article_name . '<br/>';
+            foreach ($value->comment as $k => $val) {
+                echo $val->comment.'<br/>';
+            }
+        }
     }
 }

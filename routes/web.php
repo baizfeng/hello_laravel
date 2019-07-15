@@ -49,4 +49,17 @@ Route::group(['prefix' => '/home/test'], function () {
     Route::any('test14', 'TestController@test14');
     //分页
     Route::get('test15', 'TestController@test15');
+    //相应方式
+    Route::get('test16', 'TestController@test16');
+    Route::get('test17', 'TestController@test17');
+    //会话控制
+    Route::get('test18', 'TestController@test18');
+    //联表查询
+    Route::get('test20', 'TestController@test20');
+    //一对一
+    Route::get('test21', 'TestController@test21');
+    //一对多
+    Route::get('test22', 'TestController@test22');
+    //多对多
+    Route::get('test23', 'TestController@test23');
 });
